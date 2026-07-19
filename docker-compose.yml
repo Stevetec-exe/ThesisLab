@@ -1,0 +1,96 @@
+services:
+  # --- Workflow engine core ---
+  engine: 
+    build: containers/core/engine
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://engine:8080/engine-rest/engine"]
+      interval: 5s
+      timeout: 60s
+      retries: 20
+
+    networks:
+      - appnet
+    ports:
+      - "8080:8080"
+  
+  # --- Additional infrastructure components ---
+  broker:
+    image: rabbitmq:management-alpine
+    hostname: my-rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - appnet
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    #volumes:
+    #  - ./enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
+
+  storage:
+    networks:
+      - appnet
+    build: containers/infrastructure/storage
+  
+  # --- Consumer Services ---
+  poll-service:
+    build: containers/services/poll
+    networks:
+      - appnet
+    environment:
+      OPERATON_URL: http://engine:8080/engine-rest
+    depends_on:
+      engine:
+        condition: service_healthy
+  
+  push-service:
+    networks:
+      - appnet
+    build: containers/services/push
+  
+  broker-service:
+    networks:
+      - appnet
+    build: containers/services/push
+  
+  storage-service:
+    networks:
+      - appnet
+    build: containers/services/storage
+
+  # --- Logging ---
+  logging:
+    networks:
+      - appnet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/testcases.jsonc:/app/config/config.jsonc
+    build: containers/logging
+
+    environment:
+      OPERATON_URL: http://engine:8080/engine-rest
+
+    depends_on:
+      engine:
+        condition: service_healthy
+      refnet-dummy:
+        condition: service_started
+
+  # Dummy container to give compose a reason to spawn referencenet.
+  # The k8s/pause container is not usable here because it is _too_ light to attract network IO
+  refnet-dummy:
+    image: alpine:latest
+    command: ["sleep", "infinity"]
+    networks:
+      - referencenet
+
+networks:
+  # This network is used for all test infrastructure
+  appnet:
+    name: appnet
+    
+  # This network is empty with a dummy container to allow the logging system to
+  # remove host network noise (multicast, discovery...)
+  referencenet:
+    name: refnet

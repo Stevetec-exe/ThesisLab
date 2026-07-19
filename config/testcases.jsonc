@@ -1,0 +1,30 @@
+{
+  "tests":[
+    {
+      "type":"idle",
+      "description":"Initial Idle",
+      "delayMs":10000,
+      "skip":true
+    },
+    {
+      "type":"constant",
+      "description":"100ms load sustain",
+      "delayMs":100,
+      "instanceCount":100,
+      "skip":false
+    }
+  ],
+  "timing":{
+    "startupDelayMs": 0,
+    "interTestDelayMs":0,
+    "interRunDelayMs":0,
+    "postTestOvermeasureMs":0
+  },
+
+  "networks":{
+    "appnet":"appnet",
+    "refnet":"refnet"
+  },
+
+  "repeats":6
+}

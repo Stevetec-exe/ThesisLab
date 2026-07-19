@@ -1,0 +1,34 @@
+{
+  "tests":[
+    {
+      "type":"idle",
+      "description":"Initial Idle",
+      "delayMs":10000,
+      "skip":false
+    },
+    {
+      "type":"constant",
+      "skip":false,
+
+      "delayMs":100,
+      "instanceCount":100,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    }
+  ],
+  "timing":{
+    "startupDelayMs": 0,
+    "interTestDelayMs":0,
+    "interRunDelayMs":0,
+    "postTestOvermeasureMs":0
+  },
+
+  "networks":{
+    "appnet":"appnet",
+    "refnet":"refnet"
+  },
+
+  "repeats":2
+}
