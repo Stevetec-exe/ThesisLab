@@ -27,4 +27,5 @@ COPY --from=build /app/dist ./dist
 
 COPY config ./config
 # Start the worker
-CMD ["node", "dist/index.js"]
+#CMD ["sleep","10","&&","node", "dist/index.js"]
+CMD ["sh", "-c", "sleep 10 && exec node dist/index.js"]

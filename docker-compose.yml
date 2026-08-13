@@ -9,7 +9,7 @@ services:
     #  retries: 20
 
     environment:
-      - AMQP_HOST="amqp://user:password@localhost:5672/%2F"
+      AMQP_HOST: amqp://user:password@broker:5672/%2F
 
     networks:
       - appnet
@@ -56,6 +56,8 @@ services:
     networks:
       - appnet
     build: containers/services/push
+    environment:
+      AMQP_HOST: amqp://user:password@broker:5672/%2F
   
   storage-service:
     networks:
@@ -67,17 +69,24 @@ services:
     pid: host
     networks:
       - appnet
+    
+    cap_add:
+      - SYS_ADMIN
+
+    security_opt:
+      - seccomp:unconfined
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /sys:/host-sys:ro
+      - /sys:/sys:ro
       - ./config/testcases.jsonc:/app/config/config.jsonc
       - ./data/raw:/app/data
     build: containers/logging
 
     environment:
       OPERATON_URL: http://engine:8080/engine-rest
-      AMQP_HOST: amqp://user:password@localhost:5672/%2F
-      SYSPATH: host-sys
+      AMQP_HOST: amqp://user:password@broker:5672/%2F
+      SYSPATH: sys
 
 networks:
   # This network is used for all test infrastructure

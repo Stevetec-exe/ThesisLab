@@ -170,5 +170,4 @@ dist
 
 # -- Generated artefacts --
 
-data/raw
-data/processed
+data/*

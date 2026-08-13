@@ -9,7 +9,7 @@
     {
       "type":"constant",
       "label":"c100",
-      "skip":true,
+      "skip":false,
 
       "delayMs":50,
       "instanceCount":100,
@@ -21,7 +21,7 @@
     {
       "type":"constant",
       "label":"c200",
-      "skip":true,
+      "skip":false,
 
       "delayMs":50,
       "instanceCount":200,
@@ -33,7 +33,7 @@
     {
       "type":"constant",
       "label":"c300",
-      "skip":true,
+      "skip":false,
 
       "delayMs":50,
       "instanceCount":300,
@@ -45,7 +45,7 @@
     {
       "type":"constant",
       "label":"c400",
-      "skip":true,
+      "skip":false,
 
       "delayMs":50,
       "instanceCount":400,
@@ -57,7 +57,7 @@
     {
       "type":"constant",
       "label":"c500-slow",
-      "skip":true,
+      "skip":false,
 
       "delayMs":50,
       "instanceCount":500,
@@ -69,7 +69,7 @@
     {
       "type":"constant",
       "label":"c500-normal",
-      "skip":true,
+      "skip":false,
 
       "delayMs":25,
       "instanceCount":500,
@@ -81,7 +81,7 @@
     {
       "type":"constant",
       "label":"c500-fast",
-      "skip":true,
+      "skip":false,
 
       "delayMs":10,
       "instanceCount":500,
@@ -93,7 +93,7 @@
     {
       "type":"constant",
       "label":"c500-saturate",
-      "skip":true,
+      "skip":false,
 
       "delayMs":0,
       "instanceCount":500,

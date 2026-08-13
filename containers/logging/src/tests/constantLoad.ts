@@ -1,7 +1,7 @@
 import { assert } from "node:console";
 import { AbstractLoadTest, type AbstractLoadTestConfig } from "./abstractLoadTest.ts"
 import { delayMs } from "../utils/time.ts";
-import { startInstance, type StartInstanceConfig } from "../io/operaton.ts";
+import { startInstance, type StartInstanceConfig } from "../io/index.ts";
 
 export interface ConstantLoadTestConfig extends AbstractLoadTestConfig{
     instanceCount: number

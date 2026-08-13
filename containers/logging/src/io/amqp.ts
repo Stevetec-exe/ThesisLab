@@ -5,7 +5,6 @@ export interface StartInstanceConfig {
 }
 
 export async function startInstance() {
-    console.log("amqp start instance")
     await publish(QUEUE_NAME,JSON.stringify({
         ref:"StartInstance",
         variables:{
@@ -32,7 +31,6 @@ export async function init() {
 }
 
 export async function publish(queue: string,msg: string) {
-    console.log(queue,msg)
     channel.sendToQueue(queue, Buffer.from(msg));
 }
 

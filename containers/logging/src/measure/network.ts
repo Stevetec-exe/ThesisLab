@@ -1,5 +1,4 @@
-import { CONFIG } from "../config/config.ts"
-import { getNetworkStats, setupNetworkStats } from "./networkRaw.ts"
+import { getNetworkStats } from "./networkRaw.ts"
 
 
 export type SimpleNetworkStatistics = {rx: number, tx: number}
@@ -12,7 +11,7 @@ export class DifferentialNetworkMeasurement{
     }
 
     private async _measure() {
-        const app = await getNetworkStats(CONFIG.networks.appnet)
+        const app = await getNetworkStats("appnet")
         this.appnet.push(app)
     }
 

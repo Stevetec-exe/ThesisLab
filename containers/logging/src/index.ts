@@ -56,7 +56,6 @@ async function run_tests() {
 }
 
 async function main() {
-  const logger = new Logger()
   if (CONFIG.timing.startupDelayMs > 0) {
     console.log(`[Meta] Waiting for startup delay ${CONFIG.timing.startupDelayMs}ms`)
     await delayMs(CONFIG.timing.startupDelayMs)
@@ -85,8 +84,7 @@ async function main() {
 
 async function main2(){
   await AMQP.init();
-  await AMQP.startInstance();
-  //setTimeout(AMQP.close,10000);
+  await main();
   await AMQP.close()
 }
 
