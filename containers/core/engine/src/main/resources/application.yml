@@ -1,8 +1,14 @@
 server.port: 8080
 operaton.bpm:
+  process-engine-plugins:
+    - "org.operaton.connect.plugin.impl.ConnectProcessEnginePlugin"
   admin-user:
     id: demo
     password: demo
     firstName: Demo
   filter:
     create: All tasks
+
+exchange-rate:
+  service:
+    url: http://localhost:9090

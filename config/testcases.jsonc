@@ -2,29 +2,117 @@
   "tests":[
     {
       "type":"idle",
-      "description":"Initial Idle",
-      "delayMs":10000,
-      "skip":true
+      "label":"reference",
+      "delayMs":60000,
+      "skip":false
     },
     {
       "type":"constant",
-      "description":"100ms load sustain",
-      "delayMs":100,
+      "label":"c100",
+      "skip":true,
+
+      "delayMs":50,
       "instanceCount":100,
-      "skip":false
-    }
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c200",
+      "skip":true,
+
+      "delayMs":50,
+      "instanceCount":200,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c300",
+      "skip":true,
+
+      "delayMs":50,
+      "instanceCount":300,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c400",
+      "skip":true,
+
+      "delayMs":50,
+      "instanceCount":400,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-slow",
+      "skip":true,
+
+      "delayMs":50,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-normal",
+      "skip":true,
+
+      "delayMs":25,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-fast",
+      "skip":true,
+
+      "delayMs":10,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-saturate",
+      "skip":true,
+
+      "delayMs":0,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_poll"
+      }
+    },
   ],
   "timing":{
     "startupDelayMs": 0,
-    "interTestDelayMs":0,
-    "interRunDelayMs":0,
-    "postTestOvermeasureMs":0
+    "interTestDelayMs":5000,
+    "interRunDelayMs":30000,
+    "postTestOvermeasureMs":2000
   },
 
   "networks":{
-    "appnet":"appnet",
-    "refnet":"refnet"
+    "appnet":"appnet"
   },
 
-  "repeats":6
+  "repeats":-1
 }

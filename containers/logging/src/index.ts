@@ -6,9 +6,12 @@ import { ConstantLoadTest } from './tests/constantLoad.ts';
 import { IdleLoadTest } from './tests/idleLoad.ts';
 import { CONFIG } from './config/config.ts';
 import { DifferentialNetworkMeasurement } from './measure/network.ts';
+import { Logger } from './logging/index.ts';
+import * as AMQP from './io/amqp.ts';
 
 
 async function run_tests() {
+  const logger = new Logger()
   for (let runId = 0; runId < CONFIG.tests.length; runId++) {
     const run = CONFIG.tests[runId]
     if (!run) {
@@ -43,18 +46,30 @@ async function run_tests() {
     }
 
     const testresult = await globaltestStats.measure()
+    logger.logSync({
+      testId: runId,
+      net_total: testresult
+    })
     console.log("differentials", testresult)
   }
+  await logger.save()
 }
 
 async function main() {
+  const logger = new Logger()
   if (CONFIG.timing.startupDelayMs > 0) {
     console.log(`[Meta] Waiting for startup delay ${CONFIG.timing.startupDelayMs}ms`)
     await delayMs(CONFIG.timing.startupDelayMs)
   }
 
-  for (let i = 0; i < CONFIG.repeats; i++) {
-    console.info(`[Meta] Running iteration ${i + 1}/${CONFIG.repeats}`)
+  let i = 0
+  while (i < CONFIG.repeats || CONFIG.repeats < 0) {
+    if(CONFIG.repeats < 0){
+      console.info(`[Meta] Running iteration ${i + 1} / ∞`)
+    }else{
+      console.info(`[Meta] Running iteration ${i + 1}/${CONFIG.repeats}`)
+    }
+    i++
     await run_tests()
     if (i != CONFIG.repeats - 1) {
       if (CONFIG.timing.interRunDelayMs > 0) {
@@ -65,4 +80,14 @@ async function main() {
   }
 
 }
-main()
+
+//main()
+
+async function main2(){
+  await AMQP.init();
+  await AMQP.startInstance();
+  //setTimeout(AMQP.close,10000);
+  await AMQP.close()
+}
+
+main2()

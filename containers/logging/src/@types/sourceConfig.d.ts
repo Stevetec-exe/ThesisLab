@@ -6,7 +6,6 @@ export type SourceConfig = {
 
     networks:{
         appnet: string
-        refnet: string
     },
 
     timing:{
