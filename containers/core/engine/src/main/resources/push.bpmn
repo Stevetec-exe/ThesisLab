@@ -13,7 +13,7 @@
       <bpmn:extensionElements>
         <operaton:connector>
           <operaton:inputOutput>
-            <operaton:inputParameter name="url">http://push-service:1337/syncronous</operaton:inputParameter>
+            <operaton:inputParameter name="url">http://push-service:1337/syncronous?startTime=${startTime}</operaton:inputParameter>
             <operaton:inputParameter name="method">GET</operaton:inputParameter>
           </operaton:inputOutput>
           <operaton:connectorId>http-connector</operaton:connectorId>

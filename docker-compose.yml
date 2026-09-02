@@ -32,9 +32,18 @@ services:
     #  - ./enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
 
   storage:
+    image: minio/minio
     networks:
       - appnet
-    build: containers/infrastructure/storage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password123
+    volumes:
+      - ./minio/data:/data
+    command: server /data --console-address ":9001"
   
   # --- Consumer Services ---
   poll-service:
@@ -43,6 +52,9 @@ services:
       - appnet
     environment:
       OPERATON_URL: http://engine:8080/engine-rest
+    
+    volumes:
+      - ./data/scratch:/app/data
     #depends_on:
       #engine:
         #condition: service_healthy
@@ -51,13 +63,18 @@ services:
     networks:
       - appnet
     build: containers/services/push
+    volumes:
+      - ./data/scratch:/app/data
   
   broker-service:
     networks:
       - appnet
-    build: containers/services/push
+    build: containers/services/broker
     environment:
       AMQP_HOST: amqp://user:password@broker:5672/%2F
+    
+    volumes:
+      - ./data/scratch:/app/data
   
   storage-service:
     networks:

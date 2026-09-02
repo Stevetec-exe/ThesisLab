@@ -1,0 +1,204 @@
+{
+  "tests":[
+    {
+      "type":"idle",
+      "label":"reference",
+      "delayMs":60000,
+      "skip":true
+    },
+    {
+      "type":"constant",
+      "label":"c100",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":100,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c200",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":200,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c300",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":300,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c400",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":400,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-slow",
+      "skip":false,
+
+      "delayMs":200,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-normal",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-fast",
+      "skip":false,
+
+      "delayMs":0,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c100 +payload",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":100,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c200 +payload",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":200,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c300 +payload",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":300,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c400 +payload",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":400,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-slow +payload",
+      "skip":false,
+
+      "delayMs":200,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-normal +payload",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":5000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c500-fast +payload",
+      "skip":false,
+
+      "delayMs":0,
+      "instanceCount":500,
+
+      "instanceConfig":{
+        "key":"proc_min_amqp",
+        "payloadSize":5000
+      }
+    }
+  ],
+  "timing":{
+    "startupDelayMs": 0,
+    "interTestDelayMs":5000,
+    "interRunDelayMs":0,
+    "postTestOvermeasureMs":5000
+  },
+
+  "networks":{
+    "appnet":"appnet"
+  },
+
+  "repeats":1
+}

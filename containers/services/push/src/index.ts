@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs/promises'
 const operatonUrl = process.env.OPERATON_URL ?? "http://localhost:8080/engine-rest";
 const app = express()
 app.use(express.json())
@@ -6,8 +7,27 @@ app.get('/',(req,res)=>{
   res.send("HTTP Push server root")
 })
 
+
+let count = 0;
+let total = 0;
+let last_instance = -1
+let instances = [] as [number,number][]
+
+app.use(express.json())
+
 app.get('/syncronous',(req,res)=>{
-  console.log("sync job started")
+  const spawnUnix = parseInt(String(req.query.startTime || '-1'))
+  const now = Date.now()
+  const diff = now - spawnUnix
+  if(last_instance == -1){
+    total = 0
+    count = 0
+  }
+  total += diff
+  count += 1
+  instances.push([spawnUnix,now])
+  last_instance = now
+
   res.json({
     success: true,
     rng: Math.round(Math.random()*10000)
@@ -45,5 +65,17 @@ app.post('/async',async(req,res)=>{
     created: true
   })
 })
+
+
+setInterval(async()=>{
+  const now = Date.now()
+  
+  if(now - last_instance > 1500 && last_instance != -1){
+    console.log("Average process delay",total/count)
+    await fs.writeFile(`data/${now}.txt`,instances.map(([start,end]) => `${start},${end},${end - start}`).join('\n'))
+    last_instance = -1
+    instances = []
+  }
+},500)
 
 app.listen(1337)

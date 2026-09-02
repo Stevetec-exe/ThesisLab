@@ -19,6 +19,7 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "camunda-external-task-client-js": "^3.1.0"
+    "camunda-external-task-client-js": "^3.1.0",
+    "minio": "^8.0.7"
   }
 }
