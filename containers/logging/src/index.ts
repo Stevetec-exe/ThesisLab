@@ -8,6 +8,9 @@ import { CONFIG } from './config/config.ts';
 import { DifferentialNetworkMeasurement } from './measure/network.ts';
 import { Logger } from './logging/index.ts';
 import * as AMQP from './io/amqp.ts';
+import { setCurrentArchitectureChannel } from './io/index.ts';
+import { exit } from 'node:process';
+import { getRunningContainerNames } from './measure/containers.ts';
 
 
 async function run_tests() {
@@ -83,6 +86,36 @@ async function main() {
 //main()
 
 async function main2(){
+  let colocated = await getRunningContainerNames();
+  const this_container = colocated.find(n=>n.includes('logging'));
+  if(!this_container){
+    console.log("[Container Discovery] No logging container found - this should never happen...")
+    return
+  }
+  const prefix = this_container.split('logging')[0]
+  colocated = colocated.map(n=>n.slice(prefix?.length).slice(0,-2))
+  let dummy_services = colocated.filter(c=>c.includes('-service'))
+  dummy_services = dummy_services.map(s=>s.split('-service')[0]??'').filter(Boolean)
+  const target_service = dummy_services[0]!
+  if(dummy_services.length != 1){
+    console.log(`[Container Discovery] Multiple sink services found: ${dummy_services}`)
+    return
+  }
+
+  const derivedChannel = {
+    'push':'push',
+    'poll':'poll',
+    'broker':'amqp',
+    'storage':'s3'
+  }[target_service] as Parameters<typeof setCurrentArchitectureChannel>[0]
+  if(!derivedChannel){
+    console.log(`[Container Discovery] Invalid sink service '${target_service}'`)
+    return
+  }
+
+  console.log(`[Container Discovery] Detected valid dummy service for architecture '${target_service}'`)
+
+  setCurrentArchitectureChannel(derivedChannel);
   await AMQP.init();
   await main();
   await AMQP.close()

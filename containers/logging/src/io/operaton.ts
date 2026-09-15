@@ -4,28 +4,18 @@ const operatonUrl = process.env.OPERATON_URL ?? "http://localhost:8080/engine-re
 
 export interface StartInstanceConfig {
     key: string,
-    payloadSize: number
+    variables: {[key:string]:string}
 }
-
-const BLOCKSIZE = 500
 
 export async function startInstance(config: StartInstanceConfig) {
 
     const variables = {} as {[key:string]:{type:string,value:string}}
-    let payloadRemaining = config.payloadSize;
-    let vid = 0
-    while(payloadRemaining > 0){
-        let vsize = Math.min(payloadRemaining,BLOCKSIZE)
-        payloadRemaining -= vsize
-        variables[`v${vid}`] = {
-            type: 'String',
-            value: 'A'.repeat(vsize)
+    
+    for(const [name,value] of Object.entries(config.variables)){
+        variables[name] = {
+            type:'string',
+            value
         }
-        vid++
-    }
-    variables['startTime'] = {
-        type:'String',
-        value: String(now())
     }
     const res = await fetch(`${operatonUrl}/process-definition/key/${config.key}/start`, {
         method: 'POST',

@@ -6,24 +6,23 @@
       "skip":false,
 
       "delayMs":10,
-      "instanceCount":15000,
+      "instanceCount":5000,
 
       "instanceConfig":{
-        "key":"proc_min_amqp",
-        "payloadSize":0
+        "payloadSize":10000
       }
     }
   ],
   "timing":{
     "startupDelayMs": 0,
-    "interTestDelayMs":30000,
+    "interTestDelayMs":5000,
     "interRunDelayMs":0,
-    "postTestOvermeasureMs":5000
+    "postTestOvermeasureMs":10000
   },
 
   "networks":{
     "appnet":"appnet"
   },
 
-  "repeats":1
+  "repeats":5
 }

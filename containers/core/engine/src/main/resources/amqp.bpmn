@@ -11,7 +11,7 @@
         <operaton:connector>
           <operaton:connectorId>amqp-connector</operaton:connectorId>
           <operaton:inputOutput>
-            <operaton:inputParameter name="message">${message}</operaton:inputParameter>
+            <operaton:inputParameter name="variables">${execution.getVariablesTyped()}</operaton:inputParameter>
           </operaton:inputOutput>
         </operaton:connector>
       </bpmn:extensionElements>
@@ -25,7 +25,7 @@
     <bpmn:sequenceFlow id="Flow_02yvv0c" sourceRef="StartEvent_1" targetRef="Activity_0mf9n48" />
   </bpmn:process>
   <bpmn:error id="Error_RateUnavailable" name="Rate Unavailable" errorCode="RATE_UNAVAILABLE" />
-  <bpmn:message id="Message_0pc7g1v" name="StartInstance" />
+  <bpmn:message id="Message_0pc7g1v" name="event:start:proc-min-amqp" />
   <bpmn:message id="Message_1lobvo4" name="WaitPID" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="currency-conversion">

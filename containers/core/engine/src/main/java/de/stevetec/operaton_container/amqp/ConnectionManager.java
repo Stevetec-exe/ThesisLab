@@ -53,17 +53,17 @@ public class ConnectionManager {
 			}
 
 			String pid = root.path("pid").asText(""); // Process ID to correltae with
-			String ref = root.path("ref").asText(null); // Message ID to emit
+			String messageName = root.path("messageName").asText(null); // Message ID to emit
 
 			// extract variables
 			Map<String, Object> variables = mapper.convertValue(
-					root.path("variables"),
+					root.path("processVariables"),
 					new TypeReference<HashMap<String, Object>>() {
 					});
 
 			// correlate
 			try{
-				MessageCorrelationBuilder correlation = runtimeService.createMessageCorrelation(ref);
+				MessageCorrelationBuilder correlation = runtimeService.createMessageCorrelation(messageName);
 				correlation.setVariables(variables);
 				if (pid.length() != 0) { // correlate to PID
 					correlation.processInstanceId(pid);
@@ -73,7 +73,7 @@ public class ConnectionManager {
 	
 				}
 			}catch(ProcessEngineException e){
-				System.out.println(String.format("[AMQP] WARN unable to correlate message %s for PID %s: %s",ref,pid,e.getMessage()));
+				System.out.println(String.format("[AMQP] WARN unable to correlate message %s for PID %s: %s",messageName,pid,e.getMessage()));
 			}
 		};
 

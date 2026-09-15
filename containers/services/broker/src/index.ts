@@ -37,7 +37,7 @@ async function main() {
         }
         //console.log(" [x] Received %s", msg.content.toString());
 
-        const spawnUnix = parseInt(String(payload.startTime.toString() || '-1'))
+        const spawnUnix = parseInt(String(payload?.startTime?.toString() || '-1'))
         const now = Date.now()
         const diff = now - spawnUnix
         if(last_instance == -1){

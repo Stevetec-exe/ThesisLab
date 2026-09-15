@@ -31,7 +31,7 @@ services:
     #volumes:
     #  - ./enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
 
-  storage:
+  storage_minio:
     image: minio/minio
     networks:
       - appnet
@@ -44,6 +44,22 @@ services:
     volumes:
       - ./minio/data:/data
     command: server /data --console-address ":9001"
+
+  storage:
+    image: chrislusf/seaweedfs
+    command:
+      - server
+      - -dir=/data
+      - -s3
+      - -s3.port=8333
+    ports:
+      - "8333:8333"
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=secret
+      - S3_BUCKET=context
+
+    restart: unless-stopped
   
   # --- Consumer Services ---
   poll-service:
@@ -102,6 +118,7 @@ services:
 
     environment:
       OPERATON_URL: http://engine:8080/engine-rest
+      S3_URL: http://storage:8333/context
       AMQP_HOST: amqp://user:password@broker:5672/%2F
       SYSPATH: sys
 

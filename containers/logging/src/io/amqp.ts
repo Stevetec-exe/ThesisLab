@@ -1,14 +1,14 @@
 import amqp from 'amqplib';
 import { now } from '../utils/time.ts';
 export interface StartInstanceConfig {
-    ref: string,
-    variables?: { [key: string]: string }
+    messageName: string,
+    processVariables?: { [key: string]: string }
 }
 
 export async function startInstance(config:StartInstanceConfig) {
     await publish(QUEUE_NAME,JSON.stringify({
-        ref:config.ref,
-        variables:config.variables
+        messageName:config.messageName,
+        processVariables:config.processVariables
     }))
 }
 

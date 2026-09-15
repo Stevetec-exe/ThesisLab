@@ -1,5 +1,6 @@
 package de.stevetec.operaton_container.amqp_connector;
 
+import org.operaton.bpm.engine.variable.impl.VariableMapImpl;
 import org.operaton.connect.impl.AbstractConnectorRequest;
 import org.operaton.connect.spi.Connector;
 import org.operaton.connect.spi.ConnectorRequest;
@@ -16,6 +17,10 @@ public class AMQPRequest extends AbstractConnectorRequest<AMQPResponse> {
 
     public String getMessage() {
         return (String) getRequestParameter("message");
+    }
+
+    public VariableMapImpl getVariables(){
+        return getRequestParameter("variables");
     }
 
     public String getProvider(){
@@ -36,7 +41,7 @@ public class AMQPRequest extends AbstractConnectorRequest<AMQPResponse> {
 
     @Override
     protected boolean isRequestValid() {
-        return getMessage() != null;
+        return true;
     }
 }
 
