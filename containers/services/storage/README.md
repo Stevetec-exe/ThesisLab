@@ -1,5 +1,4 @@
-# Storage service
+# Push service
 
-Implements the Operaton-native workqueue-polling
-via the provided SDK. Fetches data from S3 for context
-data instead of via the message
+Exposes a webserver for pushing work items, pulls data from
+s3 storage instead if from request body

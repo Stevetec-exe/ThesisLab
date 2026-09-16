@@ -15,8 +15,9 @@ let instances = [] as [number,number][]
 
 app.use(express.json())
 
-app.get('/syncronous',(req,res)=>{
-  const spawnUnix = parseInt(String(req.query.startTime || '-1'))
+app.post('/syncronous',(req,res)=>{
+  const body = req.body??{}
+  const spawnUnix = parseInt(String(body?.startTime || '-1'))
   const now = Date.now()
   const diff = now - spawnUnix
   if(last_instance == -1){
@@ -50,17 +51,12 @@ app.post('/async',async(req,res)=>{
       body: JSON.stringify({
         messageName:"http-push-response",
         processInstanceId: processID,
-        processVariables:{
-          "async-rng":{
-            value: Math.round(Math.random()*10000),
-            type: "integer"
-          }
-        }
+        processVariables:{}
       })
     })
     const rtest = await fres.text()
     console.log("message result:",fres.status,rtest)
-  },2000)
+  },0)
   res.json({
     created: true
   })

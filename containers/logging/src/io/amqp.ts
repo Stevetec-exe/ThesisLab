@@ -39,6 +39,10 @@ export async function publish(queue: string,msg: string) {
 }
 
 export async function close() {
-    await channel.close();
-    await connection.close();
+    if(channel){
+        await channel.close();
+    }
+    if(connection){
+        await connection.close();
+    }
 }

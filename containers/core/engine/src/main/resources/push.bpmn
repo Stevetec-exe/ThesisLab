@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:operaton="http://operaton.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://operaton.org/schema/modeler/1.0" id="Definitions_1gv1icy" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.48.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
-  <bpmn:process id="proc_min_push" name="MinimalPush" isExecutable="true" operaton:historyTimeToLive="10">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:operaton="http://operaton.org/schema/1.0/bpmn"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:modeler="http://operaton.org/schema/modeler/1.0" id="Definitions_1gv1icy"
+  targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.48.0"
+  modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <bpmn:process id="proc-min-push" name="MinimalPush" isExecutable="true"
+    operaton:historyTimeToLive="10">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0c0ez8n</bpmn:outgoing>
     </bpmn:startEvent>
@@ -13,8 +21,18 @@
       <bpmn:extensionElements>
         <operaton:connector>
           <operaton:inputOutput>
-            <operaton:inputParameter name="url">http://push-service:1337/syncronous?startTime=${startTime}</operaton:inputParameter>
-            <operaton:inputParameter name="method">GET</operaton:inputParameter>
+            <operaton:inputParameter name="url">
+              http://push-service:1337/syncronous</operaton:inputParameter>
+            <operaton:inputParameter name="payload">
+              ${JSON(execution.getVariablesTyped().asValueMap()).toString()}
+            </operaton:inputParameter>
+            <operaton:inputParameter name="headers">
+              <map>
+                <entry key="Content-Type">application/json</entry>
+                <entry key="Accept">application/json</entry>
+              </map>
+            </operaton:inputParameter>
+            <operaton:inputParameter name="method">POST</operaton:inputParameter>
           </operaton:inputOutput>
           <operaton:connectorId>http-connector</operaton:connectorId>
         </operaton:connector>

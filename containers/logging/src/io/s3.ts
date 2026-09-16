@@ -11,8 +11,8 @@ const s3 = new S3Client({
   region: process.env.AWS_REGION ?? "us-east-1",
   forcePathStyle: true, // useful for S3-compatible storage such as MinIO
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "minioadmin",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "minioadmin",
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "admin",
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "secret",
   },
 });
 

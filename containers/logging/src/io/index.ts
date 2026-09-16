@@ -72,11 +72,11 @@ export async function startMockedInstance(config:StartMockedInstanceConfig,chann
             variables: get_dummy_payload_variables(config.payloadSize)
         },'amqp')
     }else if(channel == 's3'){
-        const refkey = await upload_to_s3(Buffer.alloc(config.payloadSize, 0x41))
+        const blob_id = await upload_to_s3(Buffer.alloc(config.payloadSize, 0x41))
         startInstance({
-            processName: 'proc-min-s3',
+            processName: 'proc-min-storage',
             variables: {
-                refkey
+                blob_id
             }
         },'engine-rest')
     }

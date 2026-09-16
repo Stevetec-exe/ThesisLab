@@ -6,7 +6,7 @@
       "skip":false,
 
       "delayMs":10,
-      "instanceCount":5000,
+      "instanceCount":2000,
 
       "instanceConfig":{
         "payloadSize":10000
@@ -17,12 +17,12 @@
     "startupDelayMs": 0,
     "interTestDelayMs":5000,
     "interRunDelayMs":0,
-    "postTestOvermeasureMs":10000
+    "postTestOvermeasureMs":60000
   },
 
   "networks":{
     "appnet":"appnet"
   },
 
-  "repeats":5
+  "repeats":1
 }
