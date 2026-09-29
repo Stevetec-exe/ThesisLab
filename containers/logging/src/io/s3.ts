@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, DeleteBucketCommand,CreateBucketCommand } from "@aws-sdk/client-s3";
 import { randomUUID } from "node:crypto";
 
 const S3Url = process.env.S3_URL ?? "http://localhost:8333/context";
@@ -28,4 +28,18 @@ export async function upload(buffer: Buffer): Promise<string> {
   );
 
   return id;
+}
+
+export async function resetBucket() {
+  try {
+    await s3.send(new DeleteBucketCommand({
+      Bucket: "context",
+    }));
+  } catch (err) {
+    // Ignore NoSuchBucket / equivalent "doesn't exist" errors.
+  }
+
+  await s3.send(new CreateBucketCommand({
+    Bucket: "context",
+  }));
 }

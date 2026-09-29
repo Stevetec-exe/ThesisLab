@@ -20,7 +20,7 @@ export class Logger{
         this.logBuffer.push(data)
     }
 
-    async save(){
-        await fs.writeFile(`data/${this.streamName}.json`,JSON.stringify(this.logBuffer,null,4))
+    async save(tag?:string){
+        await fs.writeFile(`data/raw/${this.streamName}${tag?'-'+tag:''}.json`,JSON.stringify(this.logBuffer,null,4))
     }
 }

@@ -2,11 +2,120 @@
   "tests":[
     {
       "type":"constant",
-      "label":"c5000-instant",
+      "label":"c5000-100",
+      "skip":false,
+
+      "delayMs":100,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-50",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-25",
+      "skip":false,
+
+      "delayMs":25,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-10",
       "skip":false,
 
       "delayMs":10,
-      "instanceCount":2000,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":0
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-0",
+      "skip":false,
+
+      "delayMs":0,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":0
+      }
+    },
+
+    {
+      "type":"constant",
+      "label":"c5000-100-payload",
+      "skip":false,
+
+      "delayMs":100,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-50-payload",
+      "skip":false,
+
+      "delayMs":50,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-25-payload",
+      "skip":false,
+
+      "delayMs":25,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-10-payload",
+      "skip":false,
+
+      "delayMs":10,
+      "instanceCount":5000,
+
+      "instanceConfig":{
+        "payloadSize":10000
+      }
+    },
+    {
+      "type":"constant",
+      "label":"c5000-0-payload",
+      "skip":false,
+
+      "delayMs":0,
+      "instanceCount":5000,
 
       "instanceConfig":{
         "payloadSize":10000
@@ -16,13 +125,12 @@
   "timing":{
     "startupDelayMs": 0,
     "interTestDelayMs":5000,
-    "interRunDelayMs":0,
-    "postTestOvermeasureMs":60000
+    "interRunDelayMs":0
   },
 
   "networks":{
     "appnet":"appnet"
   },
 
-  "repeats":1
+  "repeats":-1
 }

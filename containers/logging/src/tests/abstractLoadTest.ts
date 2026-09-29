@@ -6,6 +6,8 @@ export abstract class AbstractLoadTest {
     };
 }
 
+import type { SourceConfig } from '../@types/sourceConfig.js';
 export interface AbstractLoadTestConfig {
-    skip: boolean
+    skip: boolean,
+    timing: Partial<SourceConfig['timing']>
 }

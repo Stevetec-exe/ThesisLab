@@ -6,7 +6,7 @@ import { startInstance, startMockedInstance, type StartInstanceConfig, type Star
 export interface ConstantLoadTestConfig extends AbstractLoadTestConfig{
     instanceCount: number
     delayMs: number
-    instanceConfig: StartMockedInstanceConfig
+    instanceConfig: StartMockedInstanceConfig,
 }
 
 export class ConstantLoadTest extends AbstractLoadTest {
